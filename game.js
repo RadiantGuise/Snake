@@ -1,7 +1,7 @@
-let lastRenderTime = 0
+import {update as updateSnake, draw as drawSnake, SNAKE_SPEED} from './snake.js'
 
-// How many times the snake moves per second
-const SNAKE_SPEED = 2
+let lastRenderTime = 0
+const gameBoard = document.getElementById('game-board')
 
 function main(currentTime) {
 
@@ -16,7 +16,21 @@ function main(currentTime) {
     if (secondsSinceLastRender < 1 / SNAKE_SPEED) return
 
     lastRenderTime = currentTime
+
+    // Update all of the logic to the game (snake's position, food eaten, game loss, etc)
+    update()
+
+    // Draw everything to screen based on the update
+    draw()
 }
 
 // Start initial main loop
 window.requestAnimationFrame(main)
+
+function update() {
+    updateSnake()
+}
+
+function draw() {
+    drawSnake(gameBoard)
+}
