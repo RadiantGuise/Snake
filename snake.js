@@ -1,3 +1,5 @@
+import { getInputDirection } from "./input.js"
+
 // How many times the snake moves per second
 export const SNAKE_SPEED = 2
 
@@ -5,7 +7,16 @@ export const SNAKE_SPEED = 2
 const snakeBody = [{x: 11, y: 11}]
 
 export function update() {
-    console.log('update snake')
+
+    const inputDirection = getInputDirection()
+    // As the snake "head" moves, each body segment shifts into the previos segment's position
+    for (let i = snakeBody.length - 2; i >= 0; i--) {
+        snakeBody[i + 1] = { ...snakeBody[i] }
+    }
+
+    // Update snake head position
+    snakeBody[0].x += inputDirection.x
+    snakeBody[0].y += inputDirection.y
 }
 
 export function draw(gameBoard) {
@@ -17,8 +28,8 @@ export function draw(gameBoard) {
         const snakeElement = document.createElement('div')
 
         // Use style to set x and y coordinate
-        snakeElement.style.gridRowStart = segment.x
-        snakeElement.style.gridColumnStart = segment.y
+        snakeElement.style.gridRowStart = segment.y
+        snakeElement.style.gridColumnStart = segment.x
 
         // Add snake class to make visible
         snakeElement.classList.add('snake')

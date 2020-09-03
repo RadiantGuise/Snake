@@ -32,5 +32,10 @@ function update() {
 }
 
 function draw() {
+
+    // Clear previous Snake position
+    gameBoard.innerHTML = ''
+
+    // Draw updated Snake position
     drawSnake(gameBoard)
 }
