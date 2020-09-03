@@ -1,7 +1,7 @@
 import { getInputDirection } from "./input.js"
 
 // How many times the snake moves per second
-export const SNAKE_SPEED = 2
+export const SNAKE_SPEED = 5
 
 // Create snake body at center coordinate of grid
 const snakeBody = [{x: 11, y: 11}]
