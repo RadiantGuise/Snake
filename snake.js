@@ -5,8 +5,10 @@ export const SNAKE_SPEED = 5
 
 // Create snake body at center coordinate of grid
 const snakeBody = [{x: 11, y: 11}]
+let newSegments = 0
 
 export function update() {
+    addSegments()
 
     const inputDirection = getInputDirection()
     // As the snake "head" moves, each body segment shifts into the previos segment's position
@@ -37,4 +39,31 @@ export function draw(gameBoard) {
         // Add segment to game board
         gameBoard.appendChild(snakeElement)
     })
+}
+
+export function expandSnake(amount) {
+    newSegments += amount
+}
+
+export function onSnake(position) {
+    
+    // Loop through each Snake segment to see if its position is the same as a food's position
+    return snakeBody.some(segment => {
+        return equalPositions(segment, position)
+    })
+}
+
+function equalPositions(pos1, pos2) {
+    return (
+        pos1.x === pos2.x && pos1.y === pos2.y
+    )
+}
+
+// Takes the last segment of the snake and duplicates it onto the last position
+function addSegments() {
+    for (let i = 0; i < newSegments; i++) {
+        snakeBody.push({ ...snakeBody[snakeBody.length -1]})
+    }
+
+    newSegments = 0
 }
